@@ -1,0 +1,13 @@
+//Here is the JS Code used at code.earthengine.google.com to find the land across the USA
+
+var dataset = ee.ImageCollection('USDA/NASS/CDL')
+                  .filter(ee.Filter.date('2018-01-01', '2019-12-31'))
+                  .first();
+var cropLandcover = dataset.select('cropland');
+
+var states = ee.FeatureCollection("TIGER/2018/States")
+  .filter(ee.Filter.eq('REGION','2'))
+
+Map.addLayer(cropLandcover, {}, 'Crop Landcover');
+print(states)
+Map.addLayer(states,{opacity:0.5})
